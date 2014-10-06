@@ -1,12 +1,47 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QGeoCoordinate>
+#include <QGeoPositionInfoSource>
+#include <QDebug>
 
 #define QML_DEVELOPMENT "qrc:/qml/dev.qml"
 #define SIM false
 
+class Pos : public QObject
+{
+    Q_OBJECT
+public:
+    Pos(QObject *parent = 0)
+        : QObject(parent)
+    {
+        QGeoPositionInfoSource *source = QGeoPositionInfoSource::createDefaultSource(this);
+        qDebug() << source->error();
+        if (source) {
+            qDebug() << source->availableSources();
+            connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)),
+                    this, SLOT(positionUpdated(QGeoPositionInfo)));
+            source->setUpdateInterval(5000);
+            source->startUpdates();
+        }
+    }
+
+    ~Pos() { }
+
+private slots:
+    void positionUpdated(const QGeoPositionInfo &info)
+    {
+        qDebug() << "Position updated:" << info;
+    }
+};
+
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    qDebug() << "building position";
+    //Pos pos;
+
 
     QQmlApplicationEngine engine;
 
@@ -26,3 +61,5 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+
+#include "main.moc"

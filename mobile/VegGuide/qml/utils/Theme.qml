@@ -1,23 +1,35 @@
 import QtQuick 2.0
+import QtQml 2.2
 
-QtObject {
+Item {
 
-    property string fontFamily : "Avenir Next"
+    property string fontFamily : "Museo Sans Rounded"
+
+    Instantiator {
+        asynchronous: false
+        model: [300, 500, 700, 900, 1000]
+        delegate: FontLoader {
+            id: _FontLoader
+            source: "../assets/MuseoSansRounded-" + modelData + ".otf"
+        }
+    }
 
     property color colorBaseText : "#252528"
+    property color colorBaseTextLighter : "#424249"
     property color vgColorGreen : "#8dc73f"
     property color vgColorLightGreen : "#abd03b"
     property color vgColorGray : "#606061"
     property color vgColorDarkRed : "#9b241f"
     property color vgColorLightRed : "#bf3f23"
+    property color vgColorBeetPurple : "#9D4A79"
 
     property color lightGrey : "#f7f7f7"
     property color lightGreyDarker : "#f3f3f3"
     property color lightGreyAccent : "#d1d1d0"
     property color lightGreyAccentSecondary : "#eeeeee"
 
-    property int headerHeight : 128
-    property int statusBarHeight : 40
+    property int headerHeight : dp(128)
+    property int statusBarHeight : dp(40)
 
     function shadeColor(c, percent) {
         var color = c.toString()
@@ -38,5 +50,10 @@ QtObject {
         var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
 
         return "#"+RR+GG+BB;
+    }
+
+    function dp(px)
+    {
+        return px
     }
 }

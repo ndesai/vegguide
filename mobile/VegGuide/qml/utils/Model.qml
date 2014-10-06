@@ -42,8 +42,9 @@ Models.SQLiteDatabase {
         }
         request.open("GET", requestUrl, true); // only async supported
         request.setRequestHeader("Accept", "application/json")
+        request.setRequestHeader("User-Agent", [config.identifier, config.version, config.packageName, config.email].join(" "))
         request.send();
     }
 
-    Component.onCompleted: reload()
+//    Component.onCompleted:
 }

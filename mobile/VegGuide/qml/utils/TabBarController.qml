@@ -42,7 +42,13 @@ Item {
                     root.tabClicked(modelData)
                     root.activeButton = this
                     root.hideAllPages()
-                    eval(modelData.sourceComponent).show()
+                    try {
+                        eval(modelData.sourceComponent).show()
+                    } catch (ex)
+                    {
+                        console.trace()
+                        console.error(ex)
+                    }
                 }
             }
             Component.onCompleted: if(count > 0) itemAt(0).clicked()

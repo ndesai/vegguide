@@ -8,7 +8,7 @@ Item {
     width: 44
     height: _Image.height
     layer.smooth: true
-    layer.enabled: true
+//    layer.enabled: true
     Image {
         id: _Image
         anchors.left: parent.left

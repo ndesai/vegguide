@@ -6,6 +6,7 @@ Loader {
     property bool isReady : status === Loader.Ready && item
     function call(fn)
     {
+        console.log("call - " + fn)
         if(status === Loader.Ready
                 && item
                 && typeof item[fn] !== "undefined")

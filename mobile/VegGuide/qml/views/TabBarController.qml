@@ -5,22 +5,23 @@ Utils.TabBarController {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
-    height: 100
+    height: __theme.dp(100)
 
     tabBarModel: [
         {
-            icon : "../img/icon-calendar.png",
-            sourceComponent: _Schedule
+            icon : "../img/icon-browse.png",
+            sourceComponent: _Recent
         },
         {
-            icon : "../img/icon-floorplan.png",
-            sourceComponent: _FloorPlan
-        },
-        {
-            icon : "../img/icon-info.png",
-            sourceComponent: _Information
+            icon : "../img/icon-location.png",
+            sourceComponent: _Nearby
         }
     ]
+
+    theme.backgroundActiveColor: __theme.vgColorGreen
+    theme.backgroundPressedColor: __theme.vgColorGreen
+    theme.borderColor: __theme.vgColorGreen
+    theme.iconPressedColor: theme.iconActiveColor
 
     Rectangle {
         anchors.top: parent.top
