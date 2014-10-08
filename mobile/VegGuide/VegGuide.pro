@@ -33,12 +33,18 @@ ios {
     QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
     #QMAKE_IOS_TARGETED_DEVICE_FAMILY = 1
 
+    LIBS += -framework Foundation
     LIBS += -framework MobileCoreServices
     LIBS += -framework MessageUI
     LIBS += -framework iAd
     LIBS += -framework AudioToolbox
+    LIBS += -framework CoreLocation
     LIBS += -L/Users/niraj/SDK/QtEnterprise/5.3/ios/qml/st/app/models/ -lModelsPlugin
     LIBS += -L/Users/niraj/SDK/QtEnterprise/5.3/ios/qml/st/app/platform/ -lPlatformPlugin
+
+OBJECTIVE_SOURCES += \
+    location.mm
+
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
@@ -46,3 +52,8 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    location.h
+
+

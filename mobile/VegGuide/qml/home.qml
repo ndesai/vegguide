@@ -2,6 +2,7 @@ import QtQuick 2.3
 import "utils" as Utils
 import "views" as Views
 import QtPositioning 5.2 as Positioning
+import st.app 1.0 as AppStreet
 
 Rectangle {
     id: root
@@ -21,24 +22,38 @@ Rectangle {
     Utils.Model { id: _Model }
 
 
+    AppStreet.Location {
+        id: _Location
+    }
 
-//    Positioning.PositionSource {
-//        id: src
-//        updateInterval: 1000
-//        active: true
+    //    Utils.ClickGuard {
+    //        z: 100000
+    //        onClicked: {
+    //            log.notice(root, "clicked....")
 
-//        onPositionChanged: {
-//            var coord = src.position.coordinate;
-//            console.log("Coordinate:", coord.longitude, coord.latitude);
-//        }
+    //        }
+    //    }
 
-//        onValidChanged: {
-//            log.notice(root, "valid = " + valid)
-//        }
-//        Component.onCompleted: {
+    Positioning.PositionSource {
+        id: src
+        updateInterval: 60000
+        active: true
 
-//        }
-//    }
+        onPositionChanged: {
+            var coord = src.position.coordinate;
+            console.log("Coordinate:", coord.latitude, coord.longitude);
+            config.latitude = String(coord.latitude)
+            config.longitude = String(coord.longitude)
+            stop()
+        }
+
+        onValidChanged: {
+            log.notice(root, "valid = " + valid)
+        }
+        Component.onCompleted: {
+            _Location.requestAlwaysAuthorization()
+        }
+    }
 
     Item {
         id: _Item_PageContainer

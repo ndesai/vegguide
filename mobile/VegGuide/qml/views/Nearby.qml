@@ -7,6 +7,10 @@ Utils.BaseTabBarPage {
 
     loadAsNeeded: true
 
+    onClosed: {
+        src.update()
+    }
+
     contentComponent: Component {
         Item {
             // Model

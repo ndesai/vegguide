@@ -11,6 +11,12 @@ Item {
     property url apiTest :  "http://appstreet.local/vg/test.json"
     property url apiTestEngland : "http://www.vegguide.org/search/by-lat-long/51.5033630,-0.1276250"
 
+    property string latitude
+    property string longitude
+
+    property url apiNearby : "http://www.vegguide.org/search/by-lat-long/%lat,%long".replace(/%lat/g, latitude).replace(/%long/g, longitude)
+
+
     property variant apiRegion : {
         "url" : "http://www.vegguide.org/",
         "headers" : {

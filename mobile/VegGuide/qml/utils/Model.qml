@@ -13,13 +13,27 @@ Models.SQLiteDatabase {
     function reload()
     {
         apiStatus = Loader.Loading
-        webRequest(config.apiTest, function(response, request, requestUrl) {
-            if(response)
-            {
-                apiStatus = Loader.Ready
-                entries = response.entries
-            }
-        })
+
+        if(Qt.platform.os === "ios")
+        {
+            webRequest(config.apiNearby, function(response, request, requestUrl) {
+                if(response)
+                {
+                    apiStatus = Loader.Ready
+                    entries = response.entries
+                }
+            })
+        }
+        else
+        {
+            webRequest(config.apiTest, function(response, request, requestUrl) {
+                if(response)
+                {
+                    apiStatus = Loader.Ready
+                    entries = response.entries
+                }
+            })
+        }
     }
 
     // Temporary model retriever
