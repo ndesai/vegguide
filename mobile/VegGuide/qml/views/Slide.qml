@@ -25,10 +25,20 @@ Rectangle {
     width: parent.width
     height: parent.height
     z: (attachTo) ? attachTo.z + 2 : 1
-    layer.enabled: true
-    layer.smooth: true
+//    layer.enabled: true
+//    layer.smooth: true
     Utils.ClickGuard { }
     color: "#ffffff"
+
+
+
+    Image {
+        id: _Image_Shadow
+        anchors.right: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        source: "shadow.png"
+    }
     Item {
         id: _Dummy
     }

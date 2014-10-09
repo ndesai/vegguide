@@ -4,7 +4,6 @@ QtObject {
 
     function notice(rootObject, message)
     {
-        console.trace()
         console.log(message)
     }
 

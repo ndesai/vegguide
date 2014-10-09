@@ -59,6 +59,8 @@ Utils.BaseTabBarPage {
                     Utils.ClickGuard {
                         onClicked: {
                             log.notice(root, "clicked")
+                            log.jsonDump(root, modelData)
+                            _RestaurantSheet.openWithObject(modelData)
                         }
                     }
                     Utils.Fill { anchors.fill: _Row; color: "yellow" }
@@ -135,25 +137,8 @@ Utils.BaseTabBarPage {
                                 Utils.Fill { color: "blue" }
                             }
                             Utils.VerticalSpacer { height: __theme.dp(10) }
-                            Row {
-                                width: parent.width
-                                height: _Label_Distance.height
-                                Utils.BaseIcon {
-                                    id: _BaseIcon_LocationArrow
-                                    width: __theme.dp(20)
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    source: "../img/icon-locationarrow.png"
-                                    color: _Label_Distance.color
-                                }
-                                Utils.HorizontalSpacer { id: _HS_Distance; width: __theme.dp(10) }
-                                Label {
-                                    id: _Label_Distance
-                                    width: parent.width - _BaseIcon_LocationArrow.width - _HS_Distance
-                                    font.pixelSize: __theme.dp(26)
-                                    text: [modelData.distance.toFixed(2), "miles"].join(" ")
-                                    color: __theme.vgColorDarkRed
-                                    Utils.Fill { color: "blue" }
-                                }
+                            DistanceLabel {
+                                text: [modelData.distance.toFixed(2), "miles"].join(" ")
                             }
                         }
                     }

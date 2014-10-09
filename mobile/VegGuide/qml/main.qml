@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import "utils" as Utils
-
+import st.app 1.0 as AppStreet
 // http://localhost/vg/test.json
 
 Utils.BaseWindow {
@@ -11,6 +11,11 @@ Utils.BaseWindow {
     visible: true
     width: screenWidth / 2
     height: screenHeight / 2
+
+
+    AppStreet.Location {
+        id: _Location
+    }
 
     Utils.Platform {
         id: __Platform

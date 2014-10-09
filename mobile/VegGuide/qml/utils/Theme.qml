@@ -16,6 +16,7 @@ Item {
 
     property color colorBaseText : "#252528"
     property color colorBaseTextLighter : "#424249"
+    property color vgColorDarkGreen : "#6c9d2a"
     property color vgColorGreen : "#8dc73f"
     property color vgColorLightGreen : "#abd03b"
     property color vgColorGray : "#606061"

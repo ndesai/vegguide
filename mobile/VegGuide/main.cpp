@@ -1,7 +1,9 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QDebug>
+#ifdef Q_OS_IOS
 #include "location.h"
+#endif
 
 #define QML_DEVELOPMENT "qrc:/qml/dev.qml"
 #define SIM false
@@ -39,16 +41,12 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    qDebug() << "building position";
-
-    qmlRegisterType<Location>("st.app", 1, 0, "Location");
-
-
     QQmlApplicationEngine engine;
 
     QString mainQml = QStringLiteral(QML_DEVELOPMENT);
 
 #ifdef Q_OS_IOS
+    qmlRegisterType<Location>("st.app", 1, 0, "Location");
     mainQml = QStringLiteral("qrc:/qml/main.qml");
 #elif defined(Q_OS_ANDROID)
     mainQml = QStringLiteral("qrc:/qml/main_android.qml");

@@ -2,7 +2,7 @@ import QtQuick 2.3
 import "utils" as Utils
 import "views" as Views
 import QtPositioning 5.2 as Positioning
-import st.app 1.0 as AppStreet
+
 
 Rectangle {
     id: root
@@ -22,9 +22,6 @@ Rectangle {
     Utils.Model { id: _Model }
 
 
-    AppStreet.Location {
-        id: _Location
-    }
 
     //    Utils.ClickGuard {
     //        z: 100000
@@ -51,7 +48,12 @@ Rectangle {
             log.notice(root, "valid = " + valid)
         }
         Component.onCompleted: {
-            _Location.requestAlwaysAuthorization()
+            try {
+                _Location.requestAlwaysAuthorization()
+            } catch (ex)
+            {
+
+            }
         }
     }
 
@@ -73,9 +75,16 @@ Rectangle {
             id: _Nearby
             controller: _TabBarController
         }
+        z: 2
     }
 
     Views.TabBarController {
         id: _TabBarController
+        z: 3
+    }
+
+    Views.RestaurantSheet {
+        id: _RestaurantSheet
+        z: 4
     }
 }

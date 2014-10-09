@@ -1,6 +1,7 @@
 import QtQuick 2.3
 
 Image {
+    property double finalOpacity : 1.0
     property bool ready : status===Image.Ready
     cache: false;
     asynchronous: true
@@ -8,7 +9,7 @@ Image {
     onStatusChanged: {
         if(status == Image.Ready)
         {
-            opacity = 1.0;
+            opacity = finalOpacity;
         }
     }
     Behavior on opacity { NumberAnimation{ duration: 150; } }
