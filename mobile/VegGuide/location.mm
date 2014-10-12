@@ -24,28 +24,41 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-        DEBUG;
-//    currentLocation = [locations objectAtIndex:0];
-    NSLog(@"loactions %@", locations);
+    DEBUG;
+    //    currentLocation = [locations objectAtIndex:0];
+    NSLog(@"locations %@", locations);
     //NSLog(@"%d, %d", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
     [manager stopUpdatingLocation];
+    if([locations count] == 0) return;
+    CLLocation *_location = locations[0];
+    m_object->setLatitude(_location.coordinate.latitude);
+    m_object->setLongitude(_location.coordinate.longitude);
+    __block NSString *cityName = @"";
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:locations[0] completionHandler:^(NSArray *placemarks, NSError *error) {
+        DEBUG << error.description;
+        cityName = ([placemarks count] > 0) ? [[placemarks objectAtIndex:0] locality] : @"";
+        DEBUG << cityName;
+        m_object->setCityName(QString::fromNSString(cityName));
+    }];
 }
 
-    - (void)locationManager:(CLLocationManager *)manager
-           didFailWithError:(NSError *)error {
-
-        DEBUG;
-    }
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error {
+    
+    DEBUG;
+    Q_UNUSED(manager);
+    Q_UNUSED(error);
+}
 
 @end
 
 Location::Location(QQuickItem *parent) :
-    QQuickItem(parent),
-    m_delegate([[Locator alloc] initWithObject:this])
+QQuickItem(parent),
+m_delegate([[Locator alloc] initWithObject:this])
 {
     DEBUG;
-//    [m_delegate startUpdating];
-
+    
 }
 
 void Location::requestAlwaysAuthorization()
@@ -53,10 +66,10 @@ void Location::requestAlwaysAuthorization()
     DEBUG;
     CLLocationManager *mgr = [[CLLocationManager alloc] init];
     [mgr requestAlwaysAuthorization];
-//    [mgr setDelegate:(id)m_delegate];
-//    [mgr setDistanceFilter:kCLDistanceFilterNone];
-//    [mgr setDesiredAccuracy:kCLLocationAccuracyBest];
-    //    [mgr startUpdatingLocation];
+    [mgr setDelegate:(id)m_delegate];
+    [mgr setDistanceFilter:kCLDistanceFilterNone];
+    [mgr setDesiredAccuracy:kCLLocationAccuracyBest];
+    [mgr startUpdatingLocation];
 }
 
 void Location::requestWhenInUseAuthorization()

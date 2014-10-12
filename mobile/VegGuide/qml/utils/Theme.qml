@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQml 2.2
 
 Item {
-
-    property string fontFamily : "Museo Sans Rounded"
+    id: root
+    property string fontFamily : ""
 
     Instantiator {
         asynchronous: false
@@ -11,6 +11,10 @@ Item {
         delegate: FontLoader {
             id: _FontLoader
             source: "../assets/MuseoSansRounded-" + modelData + ".otf"
+        }
+        onCountChanged: {
+            if(count === 5)
+                root.fontFamily = "Museo Sans Rounded"
         }
     }
 
@@ -31,6 +35,8 @@ Item {
 
     property int headerHeight : dp(128)
     property int statusBarHeight : dp(40)
+
+    property int listLeftRightMargins : dp(40)
 
     function shadeColor(c, percent) {
         var color = c.toString()

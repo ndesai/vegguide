@@ -46,8 +46,8 @@ Utils.BaseTabBarPage {
         attachTo: _ListView
         blurOffset: 0
         Label {
-            text: qsTr("Recent")
             anchors.centerIn: parent
+            text: qsTr("Recent")
         }
         z: 3
     }

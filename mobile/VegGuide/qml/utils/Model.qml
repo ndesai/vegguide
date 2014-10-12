@@ -36,6 +36,11 @@ Models.SQLiteDatabase {
         }
     }
 
+    function load(urlObject, callback)
+    {
+        webRequest(urlObject.url, callback)
+    }
+
     // Temporary model retriever
 
     function webRequest(requestUrl, callback){

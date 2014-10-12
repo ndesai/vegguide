@@ -53,5 +53,6 @@
         <file>qml/views/Slide.qml</file>
         <file>qml/views/TabBarController.qml</file>
         <file>qml/views/DistanceLabel.qml</file>
+        <file>qml/views/Browse.qml</file>
     </qresource>
 </RCC>

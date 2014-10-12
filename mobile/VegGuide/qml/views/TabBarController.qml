@@ -10,6 +10,10 @@ Utils.TabBarController {
     tabBarModel: [
         {
             icon : "../img/icon-browse.png",
+            sourceComponent: _Browse
+        },
+        {
+            icon : "../img/icon-browse.png",
             sourceComponent: _Recent
         },
         {
@@ -20,7 +24,7 @@ Utils.TabBarController {
 
     theme.backgroundActiveColor: __theme.vgColorGreen
     theme.backgroundPressedColor: __theme.vgColorGreen
-    theme.borderColor: __theme.vgColorGreen
+    theme.borderColor: __theme.lightGreyDarker
     theme.iconPressedColor: theme.iconActiveColor
 
     Rectangle {

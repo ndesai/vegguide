@@ -33,20 +33,20 @@ Rectangle {
 
     Positioning.PositionSource {
         id: src
-        updateInterval: 60000
-        active: true
+//        updateInterval: 60000
+//        active: true
 
-        onPositionChanged: {
-            var coord = src.position.coordinate;
-            console.log("Coordinate:", coord.latitude, coord.longitude);
-            config.latitude = String(coord.latitude)
-            config.longitude = String(coord.longitude)
-            stop()
-        }
+//        onPositionChanged: {
+//            var coord = src.position.coordinate;
+//            console.log("Coordinate:", coord.latitude, coord.longitude);
+//            config.latitude = String(coord.latitude)
+//            config.longitude = String(coord.longitude)
+//            stop()
+//        }
 
-        onValidChanged: {
-            log.notice(root, "valid = " + valid)
-        }
+//        onValidChanged: {
+//            log.notice(root, "valid = " + valid)
+//        }
         Component.onCompleted: {
             try {
                 _Location.requestAlwaysAuthorization()
@@ -65,6 +65,11 @@ Rectangle {
         anchors.bottom: _TabBarController.top
         clip: true
         Behavior on scale { NumberAnimation { duration: 350; easing.type: Easing.OutCubic} }
+
+        Views.Browse {
+            id: _Browse
+            controller: _TabBarController
+        }
 
         Views.Recent {
             id: _Recent

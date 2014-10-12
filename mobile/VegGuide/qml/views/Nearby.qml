@@ -7,10 +7,6 @@ Utils.BaseTabBarPage {
 
     loadAsNeeded: true
 
-    onClosed: {
-        src.update()
-    }
-
     contentComponent: Component {
         Item {
             // Model
@@ -30,8 +26,8 @@ Utils.BaseTabBarPage {
                 attachTo: _ListView
                 blurOffset: 0
                 Label {
-                    text: qsTr("Nearby")
                     anchors.centerIn: parent
+                    text: [qsTr("Nearby"), _Location.cityName].filter(Boolean).join(" ")
                 }
                 z: 3
             }
