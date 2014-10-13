@@ -26,6 +26,32 @@ Item {
 
     property url apiRecent : "http://appstreet.local/vg/recent.xml"
 
+    // https://developers.google.com/maps/documentation/ios/urlscheme
+    // https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
+    property variant maps_ios : [
+        "comgooglemaps://?q=",
+        "http://maps.apple.com/?q="
+    ]
+
+    property variant maps_android : [
+        "geo:$coordinates$",
+    ]
+
+    property variant maps : maps_ios
+
+    function openMaps(address)
+    {
+        console.log("openMaps")
+        console.log("address = " + address)
+        /// TODO: Check for reachability
+        // If network is available, use the address,
+        // if not, use the lat/long coordinates
+        for(var i = 0; i < maps.length; i++)
+        {
+            if(Qt.openUrlExternally(maps[i]+""+address))
+                break;
+        }
+    }
 
     StateGroup {
         states: [

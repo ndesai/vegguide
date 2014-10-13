@@ -18,6 +18,7 @@ Rectangle {
     property alias config : _Config
     Utils.Config { id: _Config }
 
+    property alias __model : _Model
     property alias model : _Model
     Utils.Model { id: _Model }
 

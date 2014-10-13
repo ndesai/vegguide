@@ -13,6 +13,7 @@
         <file>qml/img/icon-heart.png</file>
         <file>qml/img/icon-location.png</file>
         <file>qml/img/icon-locationarrow.png</file>
+        <file>qml/img/icon-news.png</file>
         <file>qml/img/icon-store.png</file>
         <file>qml/img/squircle.png</file>
         <file>qml/main.qml</file>
@@ -41,7 +42,11 @@
         <file>qml/utils/TabBarController.qml</file>
         <file>qml/utils/Theme.qml</file>
         <file>qml/utils/VerticalSpacer.qml</file>
+        <file>qml/views/Browse.qml</file>
+        <file>qml/views/BrowseList.qml</file>
         <file>qml/views/ColumnDivider.qml</file>
+        <file>qml/views/DistanceLabel.qml</file>
+        <file>qml/views/EntriesListView.qml</file>
         <file>qml/views/Header.qml</file>
         <file>qml/views/Label.qml</file>
         <file>qml/views/LabelBold.qml</file>
@@ -52,7 +57,6 @@
         <file>qml/views/Sheet.qml</file>
         <file>qml/views/Slide.qml</file>
         <file>qml/views/TabBarController.qml</file>
-        <file>qml/views/DistanceLabel.qml</file>
-        <file>qml/views/Browse.qml</file>
+        <file>qml/utils/ActionSheet.qml</file>
     </qresource>
 </RCC>

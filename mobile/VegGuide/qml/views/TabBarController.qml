@@ -9,16 +9,16 @@ Utils.TabBarController {
 
     tabBarModel: [
         {
-            icon : "../img/icon-browse.png",
-            sourceComponent: _Browse
-        },
-        {
-            icon : "../img/icon-browse.png",
+            icon : "../img/icon-news.png",
             sourceComponent: _Recent
         },
         {
             icon : "../img/icon-location.png",
             sourceComponent: _Nearby
+        },
+        {
+            icon : "../img/icon-browse.png",
+            sourceComponent: _Browse
         }
     ]
 

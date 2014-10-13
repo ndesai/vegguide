@@ -129,7 +129,7 @@ Slide {
                         Label {
                             id: _Label_VegLevel
                             anchors.left: parent.left
-                            font.pixelSize: __theme.dp(28)
+                            font.pixelSize: __theme.dp(32)
                             font.bold: true
                             wrapMode: Text.WordWrap
                             style: Text.Raised
@@ -140,9 +140,10 @@ Slide {
                             Utils.Fill { color: "green" }
                         }
                         DistanceLabel {
-                            width: 150
+                            id: _DistanceLabel
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
+                            width: 150
                             text: getProperty("distance") ? [getProperty("distance").toFixed(2), "miles"].join(" ") : ""
                         }
                     }
@@ -193,15 +194,28 @@ Slide {
                         anchors.leftMargin: _Flickable.standardLeftRightMargin
                         anchors.right: parent.right
                         anchors.rightMargin: anchors.leftMargin
-                        font.pixelSize: __theme.dp(28)
+                        font.pixelSize: __theme.dp(32)
                         wrapMode: Text.WordWrap
+                        maximumLineCount: 3
+                        elide: Text.ElideRight
                         style: Text.Raised
                         styleColor: "#ffffff"
                         text: getProperty("categories").concat(getProperty("cuisines")).join(", ")
                         Utils.Fill { color: "green" }
                     }
                 }
-                Utils.VerticalSpacer { height: 40 }
+                Utils.VerticalSpacer { height: __theme.dp(40) }
+                Label {
+                    id: _Label_DescriptionTitle
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(36)
+                    color: __theme.vgColorBeetPurple
+                    text: qsTr("About")
+                }
+                Utils.VerticalSpacer { height: __theme.dp(10) }
                 Label {
                     id: _Label_Description
                     anchors.left: parent.left
@@ -209,14 +223,134 @@ Slide {
                     anchors.right: parent.right
                     anchors.rightMargin: anchors.leftMargin
                     wrapMode: Text.WordWrap
-                    font.pixelSize: 28
+                    font.pixelSize: __theme.dp(32)
                     text: getProperty("long_description")["text/vnd.vegguide.org-wikitext"] || getProperty("short_description")
                 }
-                Rectangle {
-                    width: 10
-                    height: 5000
+                Utils.VerticalSpacer { visible: _Label_PriceRange.visible; height: __theme.dp(40) }
+                Label {
+                    id: _Label_PriceRangeTitle
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(36)
+                    color: __theme.vgColorBeetPurple
+                    text: qsTr("Price")
+                    visible: _Label_PriceRange.visible
                 }
+                Utils.VerticalSpacer { visible: _Label_PriceRange.visible; height: __theme.dp(10) }
+                Label {
+                    id: _Label_PriceRange
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(32)
+                    visible: text !== ""
+                    text: getProperty("price_range").replace(/ ([a-z])/g,
+                                                             function (g) {
+                                                                 return " " + g[1].toUpperCase();
+                                                             });
+                }
+                Utils.VerticalSpacer { height: __theme.dp(40) }
+                Label {
+                    id: _Label_AddressTitle
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(36)
+                    color: __theme.vgColorBeetPurple
+                    text: qsTr("Address")
+                }
+                Utils.VerticalSpacer { height: __theme.dp(10) }
+                Label {
+                    id: _Label_Address
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(32)
+                    text: [
+                        getProperty("neighborhood") !== getProperty("city") && getProperty("neighborhood"),
+                        getProperty("address1"),
+                        [getProperty("city"),
+                         getProperty("region"),
+                         getProperty("postal_code")].filter(Boolean).join(", ")
+                    ].filter(Boolean).join("\n")
+                }
+                Utils.VerticalSpacer { height: __theme.dp(40) }
+                Label {
+                    id: _Label_ContactTitle
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(36)
+                    color: __theme.vgColorBeetPurple
+                    text: qsTr("Contact")
+                }
+                Utils.VerticalSpacer { height: __theme.dp(10) }
+                Label {
+                    id: _Label_Contact
+                    anchors.left: parent.left
+                    anchors.leftMargin: _Flickable.standardLeftRightMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: anchors.leftMargin
+                    font.pixelSize: __theme.dp(32)
+                    text: [
+                        getProperty("phone"),
+                        getProperty("website")
+                    ].filter(Boolean).join("\n")
+                    Utils.ClickGuard {
+                        onClicked: _ActionSheet.open()
+                    }
+                }
+                Utils.VerticalSpacer { height: __theme.dp(60) }
             }
         }
+
+
+
+
+
+        // Contact Selector
+        Utils.ActionSheet {
+            id: _ActionSheet
+            onItemClicked: {
+                if(itemObject.identifier === "CALL")
+                {
+                    Qt.openUrlExternally("tel:" + getProperty("phone"))
+                }
+                else if(itemObject.identifier === "WEBSITE")
+                {
+                     Qt.openUrlExternally(getProperty("website"))
+                }
+                else if(itemObject.identifier === "MAP")
+                {
+                    var address = [getProperty("address1"),
+                            [getProperty("city"),
+                             getProperty("region"),
+                             getProperty("postal_code")].filter(Boolean).join("+")].join("+")
+                    config.openMaps(address)
+                }
+            }
+
+            model: [
+                {
+                    identifier: "MAP",
+                    text: qsTr("Open address in Maps")
+                },
+                {
+                    identifier: "CALL",
+                    text: [qsTr("Call"), getProperty("phone")].filter(Boolean).join(" ")
+                },
+                {
+                    identifier: "WEBSITE",
+                    text: [qsTr("Visit"), getProperty("website")].filter(Boolean).join(" ")
+                }
+            ]
+        }
+
     }
 }

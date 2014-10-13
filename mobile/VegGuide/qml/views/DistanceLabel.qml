@@ -17,7 +17,7 @@ Row {
         id: _Label_Distance
         width: parent.width - _BaseIcon_LocationArrow.width - _HS_Distance
         font.pixelSize: __theme.dp(26)
-        color: __theme.vgColorDarkRed
+        color: __theme.vgColorBeetPurple
         Utils.Fill { color: "blue" }
     }
 }
